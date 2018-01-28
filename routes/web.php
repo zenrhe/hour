@@ -11,6 +11,17 @@
 |
 */
 
+
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('venues', 'VenueController@index');
+Route::get('venues/{venue}', 'VenueController@show');
+
+Route::get('users', 'UsersController@index');
+Route::get('users/{user}', 'UsersController@show');
+
+Route::get('logs', 'LogController@index');
+Route::get('logs/{log}', 'LogController@show');
+

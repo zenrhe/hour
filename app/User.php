@@ -26,4 +26,16 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function scopeActive($query, $id)
+    {
+        //App\User::active()->where('id', '=', 1)->get();
+
+        return $query->where('active', 1);
+    }
+
+    public static function notActive()
+    {
+        return static::where('active', 0)->get();
+    }
 }
