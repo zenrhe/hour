@@ -8,6 +8,6 @@
 
   <?php //Insert Logs for user 
     //Check there are any logs?>                
-    @include('logs.user')
+    @include('users.logs')
 
 @endsection

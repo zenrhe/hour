@@ -13,6 +13,11 @@ class Venue extends Model
     //     return static::where('active', 1)->get();
     // }
 
+    public function logs()
+    {
+        return $this->hasMany('App\Log');
+    }
+
     public function scopeActive($query, $val)
     {
         return $query->where('active', 1);

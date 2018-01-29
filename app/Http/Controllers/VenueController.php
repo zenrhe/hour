@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Venue;
+use App\User;
+use App\Log;
+
+
 
 class VenueController extends Controller
 {
@@ -17,8 +21,9 @@ class VenueController extends Controller
     public function show(Venue $venue)
     { 
 
-        $logs = Log::where('venue_id',$venue->id)->get();
+        //$logs = Log::where('venue_id',$venue->id)->get(); //dont need when model has link
+        $logs = Venue::find($venue->id )->logs;
 
-        return view('venue.show', compact('venue', 'logs'));
+        return view('venues.show', compact('venue', 'logs'));
     }
 }

@@ -21,8 +21,8 @@ class CreateLogTable extends Migration
             $table->text('description');
             $table->integer('venue_id');
             $table->date('submitted');
-            $table->integer('approvedBy');
-            $table->date('approvedAt');
+            $table->integer('approvedBy')->default(NULL)->nullable();
+            $table->date('approvedAt')->default(NULL)->nullable();
             $table->timestamps();
         });
     }

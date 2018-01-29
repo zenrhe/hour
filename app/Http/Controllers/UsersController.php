@@ -19,9 +19,18 @@ class UsersController extends Controller
     public function show(User $user)
     {
         
-        $logs = Log::where('user_id',$user->id)->get();
+       // $logs = Log::where('user_id',$user->id)->get();
+        $logs = User::find($user->id )->logs;
 
         return view('users.show', compact('user', 'logs'));
     }
 
+    // public function logs(User $user)
+    // {
+
+    //     $logs = User::find($user->id )->logs;
+
+    //     return view('user.logs', compact('logs', 'user'));
+
+    // }
 }
