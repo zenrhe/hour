@@ -24,7 +24,6 @@ class LogController extends Controller
         //Not tested
         $logs = Log::where('user_id', $user->id )->get();
 
-        //return view('user.logs', compact('logs'));
         return $logs;
     }
 

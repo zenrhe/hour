@@ -9,10 +9,16 @@
     <script src="main.js"></script>
 </head>
 <body>
+
+@include('layouts.nav')
+
     @yield('header')
-
+<div class="contrainer">
     @yield('content')
-
+</div>
     @yield('footer')
+    
+@include('layouts.footer')
+
 </body>
 </html>

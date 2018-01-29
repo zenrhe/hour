@@ -24,5 +24,4 @@ class UsersController extends Controller
         return view('users.show', compact('user', 'logs'));
     }
 
-    //TODO Show User and Logs for them
 }
