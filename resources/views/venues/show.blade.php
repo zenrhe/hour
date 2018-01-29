@@ -3,10 +3,10 @@
 
 @section('content')
 
-{{$venue->name}} 
+<h2>{{$venue->name}} </h2>
+<h4>This Month: {{ $venue->logs->where('submitted', '>=', Carbon\Carbon::now()->startOfMonth())->sum('hours') }} - Total: {{ $venue->logs->sum('hours') }}</h4>
 
-<?php //Insert Logs for user 
-    //Check there are any logs?>                
+                
     @include('venues.logs')
 
 @endsection

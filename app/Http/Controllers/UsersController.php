@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Log;
 use App\Venue;
+use Carbon\Carbon;
 
 class UsersController extends Controller
 {
@@ -23,14 +24,5 @@ class UsersController extends Controller
         $logs = User::find($user->id )->logs;
 
         return view('users.show', compact('user', 'logs'));
-    }
-
-    // public function logs(User $user)
-    // {
-
-    //     $logs = User::find($user->id )->logs;
-
-    //     return view('user.logs', compact('logs', 'user'));
-
-    // }
+    } 
 }

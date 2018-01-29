@@ -10,7 +10,20 @@ class Log extends Model
 {
     use Notifiable;
 
-  
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function venue()
+    {
+        return $this->belongsTo(Venue::class);
+    }
+   
+    public function approvedBy()
+    {
+        return $this->belongsTo(User::class, 'id');
+    }
 
     /**
      * The attributes that are mass assignable.

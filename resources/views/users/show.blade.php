@@ -2,12 +2,9 @@
 
 @section('content')
   
-  
-  <?php //User Details Formatting ?>    
-    {{$user->first_name}} 
-
-  <?php //Insert Logs for user 
-    //Check there are any logs?>                
+    <h2>{{ $user->first_name }} </h2>
+    <h4>This Month: {{ $user->logs->where('submitted', '>=', Carbon\Carbon::now()->startOfMonth())->sum('hours') }} - Total: {{ $user->logs->sum('hours') }}</h4>
+             
     @include('users.logs')
 
 @endsection

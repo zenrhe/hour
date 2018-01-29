@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Log;
 use App\User;
 use App\Venue;
+use Carbon\Carbon;
 
 class LogController extends Controller
 {
@@ -22,6 +23,14 @@ class LogController extends Controller
     public function store(Request $request)
     {
         //dd($request->all());
+
+        $this->validate(request(), [
+            'hours' => 'required',
+            'dateWorked' => 'required|date',
+            'venue_id' => 'required',
+            'description' => 'nullable|max:255',
+        ]);
+
         $log = new Log;
 
         $log->user_id = request('user_id');
@@ -41,15 +50,6 @@ class LogController extends Controller
             'LogController@getUserLogs', ['id' => $id]
         );       
     }
-
-    
-    public function getVenueLogs(Venue $venue)
-    {
-        //Not tested
-        $logs = Log::where('venue_id', $venue->id )->get();
-
-        return $logs;
-    }
     
     public function index()
     {  
@@ -63,15 +63,5 @@ class LogController extends Controller
         return view('logs.show', compact('log'));
     }
 
-    // public function getUserLogs(User $user)
-    // {
-        
-    //     //$logs = Log::where('user_id', $user->id )->get();
-
-    //     $logs = User::find($user->id )->logs;
-
-    //     return view('logs.user', compact('logs', 'user'));
-
-    // }
 
 }
