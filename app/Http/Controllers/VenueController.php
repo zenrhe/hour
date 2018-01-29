@@ -16,8 +16,8 @@ class VenueController extends Controller
     }
     public function show(Venue $venue)
     { 
-        //$venue = Venue::find($id);
-
         return view('venues.show', compact('venue'));
     }
+
+    //TODO Show Venue and Logs for them
 }

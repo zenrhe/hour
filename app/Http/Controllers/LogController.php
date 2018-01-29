@@ -18,4 +18,18 @@ class LogController extends Controller
     {
         return view('logs.show', compact('log'));
     }
+
+    public function getUserLogs(User $user)
+    {
+        //Not tested
+        $logs = Log::where('user_id', $user->id )->get();
+
+        //return view('user.logs', compact('logs'));
+        return $logs;
+    }
+
+    public function getVenueLogs(Venue $venue)
+    {
+        
+    }
 }
