@@ -11,6 +11,11 @@ use Carbon\Carbon;
 
 class VenueController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {  
         $venues = Venue::get();

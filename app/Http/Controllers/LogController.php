@@ -10,10 +10,15 @@ use Carbon\Carbon;
 
 class LogController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function create()
     {
         //TODO Get Logged In User
-        //$user = User::find($id);
+        //this is done in Store
+        //likely remove the below
 
         $user = User::find(1);
         $venues = Venue::get();
@@ -58,10 +63,24 @@ class LogController extends Controller
         return view('logs.index', compact('logs'));
 
     }
+
     public function show(Log $log)
     {
         return view('logs.show', compact('log'));
     }
 
+    public function getUserLogs()
+    {
+        $users = User::get();
+
+        return view('users.logsAll', compact('users'));
+    }
+
+    public function getVenueLogs()
+    {
+        $venues = Venue::get();
+
+        return view('venues.logsAll', compact('venues'));
+    }
 
 }

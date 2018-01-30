@@ -20,7 +20,6 @@ Route::get('/', function () {
 Route::get('users', 'UsersController@index');
 Route::get('users/{user}', 'UsersController@show');
 
-
 //Venues
 Route::get('venues', 'VenueController@index');
 Route::get('venues/{venue}', 'VenueController@show');
@@ -29,22 +28,9 @@ Route::get('venues/{venue}', 'VenueController@show');
 Route::get('logs/create', 'LogController@create');
 Route::POST('logs', 'LogController@store');
 
+Route::get('userlogs/', 'LogController@getUserLogs');
+Route::get('venuelogs/', 'LogController@getVenueLogs');
 
-//Route::get('users/{user}', 'LogController@getUserLogs');
-//Route::get('userlogs/{user}', 'LogController@getUserLogs');
-//Route::get('venuelogs/{venue}', 'LogController@getVenueLogs');
-//Route::get('logs', 'LogController@index');
-//Route::get('logs/{log}', 'LogController@show'); //breaks logs/create??!!
+Auth::routes();
 
-
-
-
-
-
-
-
-
-
-
-
-
+Route::get('/home', 'HomeController@index')->name('home');
