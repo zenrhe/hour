@@ -6,7 +6,9 @@
 <div id="view_user_list">
 
     <h2>Users</h2>
-    <!-- <p><a href="/venues/">Show Hours for All Venues</a></p> -->
+    <p><a href="/userlogs/">Show All Logs</a><p>
+    <br/>
+
         <table class="table table-striped sortable">
         <thead class="thead-inverse">
             <tr>

@@ -21,7 +21,8 @@
 
             @if($log->approvedAt !=null)
             <td> <input type='checkbox' checked='checked'> </td>
-            <td>{{ $log->user->first_name , $log->user->last_name}}  </td> 
+        <!--TODO show Abbproved by name from looking up its value as a user id-->
+            <td>{{ $log->user->approvedBy}}  </td> 
             <td>{{  date('jS M y', strtotime($log->approvedAt)) }}</td> 
             
             @else

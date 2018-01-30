@@ -7,6 +7,7 @@ use App\Log;
 use App\User;
 use App\Venue;
 use Carbon\Carbon;
+use Auth;
 
 class LogController extends Controller
 {
@@ -20,7 +21,7 @@ class LogController extends Controller
         //this is done in Store
         //likely remove the below
 
-        $user = User::find(1);
+        $user = Auth::user();
         $venues = Venue::get();
 
         return view('logs.create', compact('user', 'venues'));
@@ -38,7 +39,7 @@ class LogController extends Controller
 
         $log = new Log;
 
-        $log->user_id = request('user_id');
+        $log->user_id = auth()->id();
         $log->hours = request('hours');
         $log->dateWorked = request('dateWorked');
         $log->description = request('description');
@@ -52,8 +53,8 @@ class LogController extends Controller
         $id = request('user_id');
    
         return redirect()->action(
-            'LogController@getUserLogs', ['id' => $id]
-        );       
+            'UsersController@show', Auth::user()
+        );      
     }
     
     public function index()

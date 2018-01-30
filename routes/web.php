@@ -12,9 +12,9 @@
 */
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', function () {return view('welcome');});
+//Route::get('/', 'HomeController@index')->name('home');
+
 
 //Users
 Route::get('users', 'UsersController@index');

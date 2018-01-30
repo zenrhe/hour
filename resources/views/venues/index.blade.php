@@ -6,7 +6,8 @@
 <div id="view_venue_list">
 
     <h2>Venues</h2>
-    <!-- <p><a href="/venues/">Show Hours for All Venues</a></p> -->
+    <p><a href="/venuelogs/">Show All Logs</a><p>
+    <br/>
         <table class="table table-striped sortable">
         <thead class="thead-inverse">
             <tr>

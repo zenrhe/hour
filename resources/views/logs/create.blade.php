@@ -18,9 +18,7 @@
         <!--<form method="post" action="view-user"> -->
          <div class="form-group ">
          {{ csrf_field() }}
-         
-         <input type="hidden" name="user_id" value="{{$user->id}}">
-
+    
          <label class="control-label requiredField" for="hoursSelection">
            Hours
           </label>

@@ -15,7 +15,7 @@ class Venue extends Model
 
     public function logs()
     {
-        return $this->hasMany('App\Log');
+        return $this->hasMany(Log::class);
     }
 
     public function scopeActive($query, $val)
