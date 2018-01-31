@@ -24,7 +24,9 @@ class Log extends Model
     public function approvedBy()
     {
         //TODO AppovedBy lookup doesnt work 
-        return $this->belongsTo(User::class, 'id');
+
+        // return $this->belongsTo(User::class, 'id');
+        return $this->belongsTo(User::class, 'approvedBy');
     }
 
     public function scopeFilter($query, $filters)
@@ -39,6 +41,9 @@ class Log extends Model
     }
     public static function archives()
     {
+        //TODO cant get this to work from tutoial example
+        //complains about static from service provider
+        
         return static::$archives = Log::selectRaw('year(dateWorked) year, monthname(dateWorked) month, count(*) logged')
         ->groupBy('year', 'month')
         ->orderByRaw('min(dateWorked) desc')

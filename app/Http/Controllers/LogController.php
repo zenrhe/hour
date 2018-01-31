@@ -14,6 +14,7 @@ class LogController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('admin');
     }
     public function create()
     {
@@ -75,11 +76,13 @@ class LogController extends Controller
         // if(request(['searchPeriod']) != '' && !NULL){
         //     $searchPeriod = request(['searchPeriod']);
         // }
-        //$searchPeriod = $request->input('searchPeriod', '12');
-        //$searchPeriod = request(['searchPeriod', '[12]']);
 
-       //Default not work when req should be empty
-       $searchPeriod = request(['searchPeriod', '[12]']);
+        //Default not work when req should be empty
+        //$searchPeriod = $request->input('searchPeriod', '12');
+       
+       $searchPeriod = request(['searchPeriod', '[12]']); //using this , but with defualt not working
+       //Suggestion:  $request->get(‘searchPeriod’, ‘12’)
+       //$searchPeriod = $request->get(‘searchPeriod’, ‘12’); //Undefined variable: request
 
        $logs = Log::latest()
             ->filter($searchPeriod)
@@ -88,7 +91,13 @@ class LogController extends Controller
         //Want to only get users contained in the filters $logs above
         //Issue see users who dont have any logs
         $users = User::get();
+
         //$filteredUsers = $logs->user->get(); //Property [user] does not exist 
+        //$filteredUsers = $logs->user; //Property [user] does not exist 
+        //$filteredUsers = $logs->user(); //Method [user] does not exist
+        //$filteredUsers = $logs->users(); //Method [users] does not exist
+
+        //$filteredUsers = $logs->users(User::get());
         //$filteredUsers = User::all()->where('$logs->user_id')->get();
         //$filteredUsers = $users->logs()->filter($searchPeriod); //Property [logs] does not exist 
         //$filteredUsers = $users->logs->filter($searchPeriod); //Property [logs] does not exist 

@@ -34,3 +34,4 @@ Route::get('venuelogs/', 'LogController@getVenueLogs');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+

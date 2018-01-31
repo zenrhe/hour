@@ -40,6 +40,20 @@ class User extends Authenticatable
 
         return $query->where('active', 1);
     }
+    public function isAdmin()
+    {
+    //     if($this->admin = 1)
+    //     {
+    //         return true;
+    //     }
+    //     else
+    //     {
+    //         return false;
+    //     }
+        
+        
+        return $this->admin; // this looks for an admin column in your users table
+    }
 
     public static function notActive()
     {
