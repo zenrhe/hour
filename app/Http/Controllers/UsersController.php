@@ -32,7 +32,7 @@ class UsersController extends Controller
        $currentUser = Auth::user()->id;
        $searchUser = $user->id;
 
-       return $currentUser;
+       //return $currentUser;
        // $logs = Log::where('user_id',$user->id)->get();
         $logs = User::find($user->id )->logs;
 
