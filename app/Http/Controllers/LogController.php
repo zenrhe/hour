@@ -62,7 +62,6 @@ class LogController extends Controller
         $logs = Log::get();
 
         return view('logs.index', compact('logs'));
-
     }
 
     public function show(Log $log)
@@ -72,16 +71,44 @@ class LogController extends Controller
 
     public function getUserLogs()
     {
-        $users = User::get();
+        //$searchPeriod = 12;
+        // if(request(['searchPeriod']) != '' && !NULL){
+        //     $searchPeriod = request(['searchPeriod']);
+        // }
+        //$searchPeriod = $request->input('searchPeriod', '12');
+        //$searchPeriod = request(['searchPeriod', '[12]']);
 
-        return view('users.logsAll', compact('users'));
+       //Default not work when req should be empty
+       $searchPeriod = request(['searchPeriod', '[12]']);
+
+       $logs = Log::latest()
+            ->filter($searchPeriod)
+            ->get();
+        
+        //Want to only get users contained in the filters $logs above
+        //Issue see users who dont have any logs
+        $users = User::get();
+        //$filteredUsers = $logs->user->get(); //Property [user] does not exist 
+        //$filteredUsers = User::all()->where('$logs->user_id')->get();
+        //$filteredUsers = $users->logs()->filter($searchPeriod); //Property [logs] does not exist 
+        //$filteredUsers = $users->logs->filter($searchPeriod); //Property [logs] does not exist 
+        //$filteredUsers = User::logs()->filter($searchPeriod); //Non-static method logs()
+        //$filteredUsers = User::->logs->filter($searchPeriod); //Property [logs] does not exist 
+        //$user->logs->where //this syntax works in other locals so logs does exist
+
+        return view('users.logsAll', compact('users', 'logs', 'searchPeriod'));
     }
 
     public function getVenueLogs()
     {
+        $searchPeriod = request(['searchPeriod']);
+
         $venues = Venue::get();
 
-        return view('venues.logsAll', compact('venues'));
-    }
+        $logs = Log::latest()
+            ->filter($searchPeriod)
+            ->get();
 
+        return view('venues.logsAll', compact('venues','logs','searchPeriod' ));
+    }
 }

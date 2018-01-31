@@ -7,3 +7,56 @@
 
 // Bootstrap
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
+
+/*home/welcome div */
+.home
+{
+	margin-top:2em;
+}
+
+/*padding in table cells*/
+th, td {
+    padding: 15px;
+}
+
+/*stops the logo being massive*/
+.header-image img {
+    max-width: 500px!important;
+}
+
+/*Stops form fields being super wide*/
+.form-group {
+    max-width: 400px!important;
+}
+
+.username-title
+{
+	margin-bottom: 1em;
+}
+
+/*Override hyerlink formatting for buttons*/
+.btn-primary, .btn-secondary{
+	color: #fff!important;
+	margin-right: 15px;
+}
+
+ .username-title
+{
+		margin-top: 1em;
+	margin-bottom: 1em;
+}
+
+.filter
+{
+	margin-bottom: 0.5em;
+}
+
+.activeFilter
+{
+	border:dotted;
+}
+
+.radio-inline
+{
+	margin-right:1em;
+}

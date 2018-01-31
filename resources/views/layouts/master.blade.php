@@ -43,6 +43,7 @@
 
 <div class="contrainer">
     @yield('content')
+    
 </div>
     @yield('footer')
     

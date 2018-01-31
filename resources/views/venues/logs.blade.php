@@ -12,12 +12,12 @@
         <!-- <th>Description</th> -->
       </tr>
     </thead>
-
-    @foreach($venue->logs as $log)
+    <!-- Get the logs (which are pre filtered) and show the ones for the current venue from loop) -->
+    @foreach($logs->where('venue_id', $venue->id) as $log)
         <tr>
             <td>{{ $log->user->first_name , $log->user->last_name}}</td> 
             <td>{{ $log->hours}}</td>
-            <td>{{ date('jS M y', strtotime($log->submitted)) }}</td> 
+            <td>{{ date('jS M y', strtotime($log->dateWorked)) }}</td> 
 
             @if($log->approvedAt !=null)
             <td> <input type='checkbox' checked='checked'> </td>

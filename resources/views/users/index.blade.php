@@ -6,9 +6,8 @@
 <div id="view_user_list">
 
     <h2>Users</h2>
-    <p><a href="/userlogs/">Show All Logs</a><p>
+    <p><a href="/userlogs/?searchPeriod=12">Show All Logs</a><p>
     <br/>
-
         <table class="table table-striped sortable">
         <thead class="thead-inverse">
             <tr>

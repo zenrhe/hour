@@ -2,6 +2,9 @@
 @extends('layouts.master')
 
 @section('content')
+<h2>Logs for All Venues</h2>
+
+@include('layouts.filters') 
 
     @foreach($venues as $venue)
         <h2>{{$venue->name}} </h2>

@@ -1,4 +1,5 @@
 
+<!--TODO Only Display if-->
 <table class="table table-striped sortable">
     <thead class="thead-inverse">
        <tr>
@@ -14,10 +15,10 @@
       </tr>
     </thead>
 
-    @foreach($user->logs as $log)
+    @foreach($user->logs as $log)  
         <tr>
             <td>{{ $log->hours }}</td>
-            <td>{{ date('jS M y', strtotime($log->submitted)) }}</td> 
+            <td>{{ date('jS M y', strtotime($log->dateWorked)) }}</td> 
             <td>{{ $log->venue->name }}</td> 
             <td>{{ $log->description }}</td> 
 

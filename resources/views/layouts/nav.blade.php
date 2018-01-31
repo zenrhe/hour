@@ -15,7 +15,10 @@
                     <a class="navbar-brand" href="{{ url('/') }}">
                         Volunteer Hours
                     </a>
-                    ( {{ Auth::user()->first_name }} ) 
+                    @guest
+                        @else
+                        ( {{ Auth::user()->first_name }} ) 
+                    @endguest
                     
                 </div>
 
