@@ -29,13 +29,19 @@ class UsersController extends Controller
         //Only admins can view other users logs. 
         //if current user matches search user then return the view
         //else check if admin or redirect
-       $currentUser = Auth::user()->id;
-       $searchUser = $user->id;
-
-       //return $currentUser;
-       // $logs = Log::where('user_id',$user->id)->get();
-        $logs = User::find($user->id )->logs;
-
+        $currentUser = Auth::user()->id;
+        $searchUser = $user->id;
+        
+        //If Current user not viewing their own logs
+        if($currentUser !== $searchUser)
+        {
+            if(!Auth::user()->isAdmin())
+            {
+                $searchUser = $currentUser;
+            }
+        }
+        $logs = User::find($searchUser)->logs;
+        $user = User::find($searchUser);
         return view('users.show', compact('user', 'logs'));
     } 
 }

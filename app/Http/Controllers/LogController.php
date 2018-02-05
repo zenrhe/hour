@@ -90,7 +90,10 @@ class LogController extends Controller
         
         //Want to only get users contained in the filters $logs above
         //Issue see users who dont have any logs
-        $users = User::get();
+
+       // $users = User::whereHas('logs')->filter($searchPeriod)->get();
+
+       $users = User::get();
 
         //$filteredUsers = $logs->user->get(); //Property [user] does not exist 
         //$filteredUsers = $logs->user; //Property [user] does not exist 

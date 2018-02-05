@@ -14,8 +14,8 @@
         <!-- <th>Description</th> -->
       </tr>
     </thead>
-
-    @foreach($user->logs as $log)  
+    
+    @foreach($user->logs as $log)
         <tr>
             <td>{{ $log->hours }}</td>
             <td>{{ date('jS M y', strtotime($log->dateWorked)) }}</td> 
