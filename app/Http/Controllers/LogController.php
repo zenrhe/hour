@@ -24,6 +24,13 @@ class LogController extends Controller
             ->withVenues(Venue::all());// just more efficient
     }
 
+    public function create2()
+    {
+        $venues = Venue::get(); //To Populate Selection 
+
+        return view('logs.create2', compact('venues'));
+    }
+
     public function store(Request $request)
     {
         $validated = $this->validate($request, [
@@ -50,11 +57,12 @@ class LogController extends Controller
         // And the only thing it's doing really is merging in the user id
         // and now()
         // Try using this pattern instead:
-
-        $log = Log::create(array_merge([
-            'user_id' => Auth::user()->id,
-            'submitted' => Carbon::now(),
-        ], $validated));
+      
+        //TODO rhe - only bit i dont get
+//         $log = Log::create(array_merge([
+//             'user_id' => Auth::user()->id,
+//             'submitted' => Carbon::now(),
+//         ], $validated));
 
         // see the code in VenueController to get this to work.
         // I would use the $log you just created to pull these values,
