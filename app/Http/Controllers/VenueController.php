@@ -59,7 +59,7 @@ class VenueController extends Controller
 
         //Redirect from venues/create to venues
         $request->session()
-            ->flash('Venue: '.request()->name.' was added');
+            ->flash('success', 'Venue: '.request()->name.' was added');
 
         return redirect(route('venues.index'));
     }

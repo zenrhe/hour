@@ -60,6 +60,7 @@ class LogController extends Controller
         // I would use the $log you just created to pull these values,
         // since the request() or $request version hasn't been validated.
         $request->session()->flash(
+            'success',
             'Log Added: '.request()->hours.' hours for '. request()->dateWorked
         );
 
