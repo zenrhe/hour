@@ -2,20 +2,20 @@
 
 @section('content')
 
-<h2>Log for <strong>{{$user->first_name}} </strong></h2>
+
+<h2>Log for <strong>{{Auth::user()->name}}</strong></h2>
 <!-- HTML Form (wrapped in a .bootstrap-iso div) -->
 <div class="bootstrap-iso">
      <div class="container-fluid">
       <div class="row">
        <div class="col-md-6 col-sm-6 col-xs-12">
 
-      @if(count($errors))
-       @include('layouts.errors')
-      @endif
-
-
+     
         <form method="POST" action="/logs">
-        <!--<form method="post" action="view-user"> -->
+        @if(count($errors))
+         @include('layouts.errors')
+        @endif
+
          <div class="form-group ">
          {{ csrf_field() }}
     

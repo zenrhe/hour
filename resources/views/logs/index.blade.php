@@ -1,9 +1,15 @@
 @extends('layouts.master')
 
 @section('content')
+  <!--duplicate of users.show due to create form redirect-->
+    <h2>{{ $user->first_name }} </h2>
 
-@foreach($logs as $log)
-    <li> {{$log->id}} - {{ $log ->description }}</li>
-@endforeach
+    @if (!empty($success))
+        @include('layouts.success')
+    @endif
+    @include('users.show')
 
+    @if (!empty($success))
+        @include('layouts.success')
+    @endif
 @endsection

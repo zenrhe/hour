@@ -21,8 +21,11 @@ Route::get('users', 'UsersController@index');
 Route::get('users/{user}', 'UsersController@show');
 
 //Venues
-Route::get('venues', 'VenueController@index');
-Route::get('venues/{venue}', 'VenueController@show');
+//Route::get('venues', 'VenueController@index');
+//Route::get('venues/{venue}', 'VenueController@show');
+Route::get('venues/create', 'VenueController@create');
+Route::post('venues', 'VenueController@store');
+
 
 //Logs
 Route::get('logs/create', 'LogController@create');

@@ -11,6 +11,10 @@ class Log extends Model
 {
     use Notifiable;
 
+    protected $fillable = [
+        'user_id', 'hours', 'dateWorked','description','venue_id','submitted',
+    ];
+    
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -51,12 +55,5 @@ class Log extends Model
         ->toArray();
     }
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'user_id', 'hours', 'dateWorked','description','venue_id','submitted',
-    ];
+
 }

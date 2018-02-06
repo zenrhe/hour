@@ -7,6 +7,7 @@ use App\Venue;
 use App\User;
 use App\Log;
 use Carbon\Carbon;
+use Session;
 
 
 class VenueController extends Controller
@@ -31,5 +32,26 @@ class VenueController extends Controller
         $logs = Venue::find($venue->id )->logs;
 
         return view('venues.show', compact('venue', 'logs'));
+    }
+
+    public function create()
+    {
+        return view('venues.create');
+    }
+
+    public function store()
+    {
+        $this->validate(request(), [
+            'name' => 'required',
+            'description' => 'nullable|max:255',
+        ]);
+
+        Venue::create(request(['name','description']));
+   
+
+        //Redirect from venues/create to venues
+        $successMsg = 'Venue: '.request()->name.' was added';
+        $venues = Venue::get();
+        return view('venues.index', compact('venues'))->withSuccess($successMsg);      
     }
 }

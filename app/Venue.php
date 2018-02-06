@@ -5,13 +5,13 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Venue;
 
+
+
 class Venue extends Model
 {
-
-    // public static function active()
-    // {
-    //     return static::where('active', 1)->get();
-    // }
+    protected $fillable = [
+        'name', 'description',
+    ];
 
     public function logs()
     {

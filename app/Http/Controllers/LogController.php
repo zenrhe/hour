@@ -8,7 +8,7 @@ use App\User;
 use App\Venue;
 use Carbon\Carbon;
 use Auth;
-
+use Session;
 class LogController extends Controller
 {
     public function __construct()
@@ -18,14 +18,9 @@ class LogController extends Controller
     }
     public function create()
     {
-        //TODO Get Logged In User
-        //this is done in Store
-        //likely remove the below
+        $venues = Venue::get(); //To Populate Selection 
 
-        $user = Auth::user();
-        $venues = Venue::get();
-
-        return view('logs.create', compact('user', 'venues'));
+        return view('logs.create', compact('venues'));
     }
     public function store(Request $request)
     {
@@ -50,12 +45,21 @@ class LogController extends Controller
         $log->approvedAt = NULL;
         
         $log->save();
-
-        $id = request('user_id');
+        
+        //TODO replace with Create function 
+        // Venue::create(request(['auth()->id()','hours', 'dateWorked','description','venue_id']));
    
-        return redirect()->action(
-            'UsersController@show', Auth::user()
-        );      
+        //Redirect from logs/create to /users/{id}
+        $successMsg = 'Log Added: '.request()->hours.' hours for '. request()->dateWorked;
+
+        //Wont Flash. Wont Redirect with message. Using view always goes to /logs
+        //$request->session()->flash('success', '$successMsg'); //fails
+        //\Session::flash('success','$successMsg'); //fails
+        //return redirect()->action('UsersController@show', Auth::user())->withSuccess($successMsg); //fails msg 
+        
+        $logs = Log::where('user_id', 'Auth::user()->id');
+        $user = User::find(Auth::user()->id);
+        return view('logs.index', compact('user','logs'))->withSuccess($successMsg);//will always go to /logs@index
     }
     
     public function index()
