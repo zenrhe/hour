@@ -2,10 +2,8 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Venue;
-
-
+use Illuminate\Database\Eloquent\Model;
 
 class Venue extends Model
 {
@@ -18,12 +16,12 @@ class Venue extends Model
         return $this->hasMany(Log::class);
     }
 
-    public function scopeActive($query, $val)
+    public function scopeActive($query)
     {
         return $query->where('active', 1);
     }
 
-    public static function notActive()
+    public static function notActive()// this should also be a scope.
     {
         return static::where('active', 0)->get();
     }
