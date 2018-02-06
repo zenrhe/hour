@@ -29,6 +29,7 @@ Route::post('venues', 'VenueController@store');
 
 //Logs
 Route::get('logs/create', 'LogController@create');
+Route::get('logs/create2', 'LogController@create2');
 Route::POST('logs', 'LogController@store');
 
 Route::get('userlogs/', 'LogController@getUserLogs');

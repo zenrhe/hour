@@ -22,6 +22,12 @@ class LogController extends Controller
 
         return view('logs.create', compact('venues'));
     }
+    public function create2()
+    {
+        $venues = Venue::get(); //To Populate Selection 
+
+        return view('logs.create2', compact('venues'));
+    }
     public function store(Request $request)
     {
         //dd($request->all());
@@ -49,10 +55,11 @@ class LogController extends Controller
         //TODO replace with Create function 
         // Venue::create(request(['auth()->id()','hours', 'dateWorked','description','venue_id']));
    
-        //Redirect from logs/create to /users/{id}
+        //Redirect 
+        //from logs/create to /users/{id} ->fail and overridden to go to /logs
         $successMsg = 'Log Added: '.request()->hours.' hours for '. request()->dateWorked;
 
-        //Wont Flash. Wont Redirect with message. Using view always goes to /logs
+        //Wont Redirect with message. Wont Flash. Using view always goes to /logs whatever view is entered
         //$request->session()->flash('success', '$successMsg'); //fails
         //\Session::flash('success','$successMsg'); //fails
         //return redirect()->action('UsersController@show', Auth::user())->withSuccess($successMsg); //fails msg 
