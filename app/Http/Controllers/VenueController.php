@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Venue;
-use App\User;
 use App\Log;
-use Carbon\Carbon;
 use Session;
-
+use App\User;
+use App\Venue;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class VenueController extends Controller
 {
@@ -17,21 +16,24 @@ class VenueController extends Controller
         $this->middleware('auth');
         $this->middleware('admin');
     }
-    
+
     public function index()
-    {  
+    {
         $venues = Venue::get();
 
         return view('venues.index', compact('venues'));
-
     }
+
     public function show(Venue $venue)
-    { 
+    {
+        // You can just reference $venue->logs in your view
+        // You already have that relationship defined in App\Venue
+        // So don't need the following line.
+        //
+        // $logs = Venue::find($venue->id )->logs;
 
-        //$logs = Log::where('venue_id',$venue->id)->get(); //dont need when model has link
-        $logs = Venue::find($venue->id )->logs;
-
-        return view('venues.show', compact('venue', 'logs'));
+        return view('venues.show')
+            ->withVenue($venue);
     }
 
     public function create()
@@ -39,19 +41,37 @@ class VenueController extends Controller
         return view('venues.create');
     }
 
-    public function store()
+    /**
+     * A store method will normally always get a Request passed into it, same for Update.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store(Request $request)
     {
-        $this->validate(request(), [
-            'name' => 'required',
-            'description' => 'nullable|max:255',
+        $validated = $this->validate($request, [
+            'name' => 'required|string',
+            'description' => 'string|max:255',
+            // nullable is a migration thing. Just don't put "required" if it's not required.
         ]);
 
-        Venue::create(request(['name','description']));
-   
+        Venue::create($validated);
 
         //Redirect from venues/create to venues
-        $successMsg = 'Venue: '.request()->name.' was added';
-        $venues = Venue::get();
-        return view('venues.index', compact('venues'))->withSuccess($successMsg);      
+        $request->session()
+            ->flash('success', 'Venue: '.request()->name.' was added');
+
+        return redirect(route('venues.index'));
+    }
+
+    /**
+     * [update description]
+     * @param  Request $request [description]
+     * @param  Venue   $venue   [description]
+     * @return [type]           [description]
+     */
+    public function update(Request $request, Venue $venue)
+    {
+        // for example
     }
 }
