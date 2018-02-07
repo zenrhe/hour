@@ -22,7 +22,7 @@
          <label class="control-label requiredField" for="hoursSelection">
            Hours
           </label>
-
+  
           <select class="select form-control" id="hoursSelection" name="hours" required>
             <!-- TODO Make Option Loop -->
            <option value=""></option>

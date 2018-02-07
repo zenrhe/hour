@@ -1,3 +1,3 @@
 <div class='alert alert-success'>
-    <p>{{ $success }}</p>
+    <p>{{ session()->get('success') }}</p>
 </div>

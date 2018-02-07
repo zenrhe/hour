@@ -13,6 +13,8 @@ class Log extends Model
 {
     use Notifiable;
 
+    protected $dates = ['dateWorked'];
+
     protected $fillable = [
         'user_id',
         'hours',
@@ -62,7 +64,7 @@ class Log extends Model
         ->toArray();
     }
 
-    // you can use this in venues.show instead of doing it inline
+    // TODO you can use this in venues.show instead of doing it inline
     // just say $venue->logs->forMonth->sum('hours')
     //
     // for extra credit add a hoursForMonth method to Venue that just

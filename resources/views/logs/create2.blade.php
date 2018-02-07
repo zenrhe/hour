@@ -3,76 +3,93 @@
 @section('content')
 
 
-<h2>Log for <strong>{{Auth::user()->name}}</strong></h2>
-<!-- HTML Form (wrapped in a .bootstrap-iso div) -->
-<div class="bootstrap-iso">
-     <div class="container-fluid">
-      <div class="row">
-       <div class="col-md-6 col-sm-6 col-xs-12">
+<div class="profile_header">
+    <div class="row">
+        <!-- <div class="col-sm">
+            <div class="avatar">
+                <a href="#"><img alt="" src="/images/profile_thumb.jpg"/></a>
+            </div>
+        </div> -->
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="circle-tile ">
+                <a href="#"><div class="circle-tile-heading green"><i class="fa fa-clock fa-fw fa-4x"></i></div></a>
+                <div class="circle-tile-content green">
+                    <div class="circle-tile-description text-faded">This Month</div>
+                    <div class="circle-tile-number text-faded ">
+                      {{ $user->logs->where('submitted', '>=', Carbon\Carbon::now()->startOfMonth())->sum('hours')}}
+                    </div>
+                </div>
+            </div>
+        </div>  
+    </div>
+    <div class="row">    
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="profile_name center_div">
+                <h3>{{Auth::user()->name}}</h3>
+            </div>
+        </div>
+    </div>
+  </div>
+    </div> 
+    </div>
+</div>
 
-     
+<!-- HTML Form (wrapped in a .bootstrap-iso div) -->
+<div class="bootstrap-iso center_div">
+  <div class="container-fluid">
+  <div class="row">
+  <div class="col-md-6 col-sm-6 col-xs-12">
+
         <form method="POST" action="/logs">
+        {{ csrf_field() }}
+        
         @if(count($errors))
          @include('layouts.errors')
         @endif
 
-         <div class="form-group ">
-         {{ csrf_field() }}
-    
-         <label class="control-label requiredField" for="hoursSelection">
-           Hours
-          </label>
-
-          <select class="select form-control" id="hoursSelection" name="hours" required>
-            <!-- TODO Make Option Loop -->
-           <option value=""></option>
-           <option value="1"> 1 </option>
-           <option value="2"> 2 </option>
-           <option value="3"> 3 </option>
-           <option value="4"> 4 </option>
-           <option value="5"> 5 </option>
-           <option value="6"> 6 </option>
-           <option value="7"> 7 </option>
-           <option value="8"> 8 </option>
-           <option value="9"> 9 </option>
-           <option value="10"> 10 </option>
-          </select>
-         </div>
+          <div class="form-group ">
+          <div class="input-group">
+            <!-- Hours  -->
+            <button type="button" class="btn btn-info btn-circle btn-xl" onClick="document.getElementById('hoursSelection').value =1">1</button>
+            <button type="button" class="btn btn-info btn-circle btn-xl" onClick="document.getElementById('hoursSelection').value =2">2</button>
+            <button type="button" class="btn btn-info btn-circle btn-xl" onClick="document.getElementById('hoursSelection').value =3">3</button>
+            <button type="button" class="btn btn-info btn-circle btn-xl" onClick="document.getElementById('hoursSelection').value =4">4</button>
+            
+            <input class="form-control inputHours btn-circle btn-xl" id="hoursSelection" name="hours" placeholder="" type="number" required/>
+          </div>
+          </div>
+         
          <div class="form-group ">
           <div class="input-group">
-          <!-- <label class="control-label requiredField" for="date" required> Date:  </label> -->
-         
-            <!-- <a href="#" role="button" id="yesterday"class="btn btn-warning btn-filter" onclick="document.getElementById('date').value = new Date();">Yesterday</a> -->
+            <!-- Date Worked  -->
             <a href="#" role="button" id="yesterday"class="btn btn-warning btn-filter">Yesterday</a>
             <a href="#" role="button" id="today" class="btn btn-success btn-filter">Today </a>
             <div class="input-group-addon">
-              <i class="fa fa-calendar">
-              </i>
+              <i class="fa fa-calendar"></i>
             </div>
-            <input class="form-control inputDate" id="date" name="dateWorked" placeholder="" type="text" />
+            <input class="form-control inputDate" id="date" name="dateWorked" placeholder="" type="text" required/>
           </div>
          </div>
-         <div class="form-group ">
-          <label class="control-label requiredField" for="venue"> Venue </label>
-          <select class="select form-control" id="venue" name="venue_id" required>
-            <option value=""></option>
 
-            @foreach($venues as $venue)
-                <option value='{{ $venue->id }}'>{{ $venue->name }}</option>
-            @endforeach
-           <!-- <option value="Other">  Other </option> -->
-          </select>
-         </div>
          <div class="form-group ">
-          <label class="control-label" for="description">
-           Description </label>
-          <textarea class="form-control" id="description" name="description" type="text"/></textarea>
+            <!-- Venue  -->
+            @foreach($venues as $venue)
+              <a href="#" role="button" id="venue_{{ $venue->id }}" class="btn btn-default" onClick="document.getElementById('venue').value ={{ $venue->id }}">
+              <i class="fas fa-home fa-1x"></i>  
+              {{ $venue->name }}</a>
+            @endforeach
+            <input type="hidden" id="venue" name="venue" placeholder="" type="number" required/>
+         </div>
+
+         <div class="form-group ">
+          <!-- Description - Not Required -->
+          <textarea class="form-control smart" id="description" name="description" placeholder="Description" type="text"/></textarea>
          </div>
          <div class="form-group">
-          <div>
+           <div class="center_div">
             <input type="hidden" name="action" value="add_Hours_Form">
-
-            <button class="btn btn-primary " name="submit" type="submit" >
+            <!-- <button class="btn btn-warning " name="submit" type="reset" > Reset</button> -->
+            <button class="btn btn-info btn-lg" name="submit" type="submit" >
               Submit
             </button>
           </div>
@@ -122,7 +139,7 @@ window.onload = function () {
             container: container,
             todayHighlight: true,
             autoclose: true,
-            todayBtn: true,
+            todayBtn: false,
         })
     })
   </script>

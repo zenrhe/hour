@@ -19,6 +19,7 @@
 <!--Font Awesome (added because you use icons in your prepend/append)-->
 <!-- <link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" /> -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 <!-- Include jQuery -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 
@@ -43,7 +44,7 @@
     @yield('header')
     @include('layouts.nav')
 
-<div class="contrainer" style="margin-top: 5em;">
+<div class="contrainer" style="margin-top:1em;">
     @yield('content')
     
 </div>

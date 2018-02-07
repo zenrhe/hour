@@ -18,17 +18,18 @@ class LogController extends Controller
         $this->middleware('admin');
     }
 
-    public function create()
+    public function create2()
     {
         return view('logs.create')
             ->withVenues(Venue::all());// just more efficient
     }
 
-    public function create2()
+    public function create()
     {
         $venues = Venue::get(); //To Populate Selection 
+        $user = Auth::user(); //for profile header
 
-        return view('logs.create2', compact('venues'));
+        return view('logs.create2', compact('venues', 'user'));
     }
 
     public function store(Request $request)
@@ -36,7 +37,7 @@ class LogController extends Controller
         $validated = $this->validate($request, [
             'hours' => 'required',
             'dateWorked' => 'required|date',
-            'venue_id' => 'required|integer',
+            'venue' => 'required|integer',
             'description' => 'string|max:255',
         ]);
 
@@ -46,34 +47,19 @@ class LogController extends Controller
         $log->hours = request('hours');
         $log->dateWorked = request('dateWorked');
         $log->description = request('description');
-        $log->venue_id = request('venue_id');
+        $log->venue_id = request('venue');
         $log->submitted = \Carbon\Carbon::now();
         $log->approvedBy = NULL;
         $log->approvedAt = NULL;
 
         $log->save();
 
-        // The above probably works, but it's a paint to read and maintain
-        // And the only thing it's doing really is merging in the user id
-        // and now()
-        // Try using this pattern instead:
-      
-        //TODO rhe - only bit i dont get
-//         $log = Log::create(array_merge([
-//             'user_id' => Auth::user()->id,
-//             'submitted' => Carbon::now(),
-//         ], $validated));
-
-        // see the code in VenueController to get this to work.
-        // I would use the $log you just created to pull these values,
-        // since the request() or $request version hasn't been validated.
         $request->session()->flash(
             'success',
-            'Log Added: '.request()->hours.' hours for '. request()->dateWorked
+            'Log Added: '.$log->hours.' hours for '.$log->dateWorked->format('jS \o\f F, Y ').' at '.$log->venue->name 
         );
 
-        // here just redirect and let logs.index figure out what it needs to do when it loads
-        return redirect(route('logs.index'));// need a named route for this to work
+        return redirect(route('users.show', ['id' =>auth()->id()]));
     }
 
     public function index()
