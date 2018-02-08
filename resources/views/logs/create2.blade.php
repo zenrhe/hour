@@ -85,7 +85,9 @@
           <!-- Description - Not Required -->
           <textarea class="form-control smart" id="description" name="description" placeholder="Description" type="text"/></textarea>
          </div>
+
          <div class="form-group">
+            <!-- Submit  -->
            <div class="center_div">
             <input type="hidden" name="action" value="add_Hours_Form">
             <!-- <button class="btn btn-warning " name="submit" type="reset" > Reset</button> -->
@@ -99,7 +101,6 @@
       </div>
      </div>
     </div>
-
     
 @endsection
 

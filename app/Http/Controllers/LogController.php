@@ -66,6 +66,8 @@ class LogController extends Controller
     {
         return view('logs.index')
             ->withLogs(Log::all());
+
+        return view('venues.logsAll', compact('venues','logs','searchPeriod' ));
     }
 
     public function show(Log $log)
@@ -74,58 +76,30 @@ class LogController extends Controller
             ->withLog($log);
     }
 
-    // I'm just gonna leave this alone, but I think maybe back up and try again here... ;)
     public function getUserLogs()
     {
-        //$searchPeriod = 12;
-        // if(request(['searchPeriod']) != '' && !NULL){
-        //     $searchPeriod = request(['searchPeriod']);
-        // }
+       $searchPeriod = request('searchPeriod','12'); 
 
-        //Default not work when req should be empty
-        //$searchPeriod = $request->input('searchPeriod', '12');
+       $usersLogs = Log::latest()
+            ->with('user')
+            ->months($searchPeriod)
+            ->get()
+            ->groupBy('user_id');
+            //TODO sortby   
 
-       $searchPeriod = request(['searchPeriod', '[12]']); //using this , but with defualt not working
-       //Suggestion:  $request->get(‘searchPeriod’, ‘12’)
-       //$searchPeriod = $request->get(‘searchPeriod’, ‘12’); //Undefined variable: request
-
-       $logs = Log::latest()
-            ->filter($searchPeriod)
-            ->get();
-
-        //Want to only get users contained in the filters $logs above
-        //Issue see users who dont have any logs
-
-       // $users = User::whereHas('logs')->filter($searchPeriod)->get();
-
-       $users = User::get();
-
-        //$filteredUsers = $logs->user->get(); //Property [user] does not exist
-        //$filteredUsers = $logs->user; //Property [user] does not exist
-        //$filteredUsers = $logs->user(); //Method [user] does not exist
-        //$filteredUsers = $logs->users(); //Method [users] does not exist
-
-        //$filteredUsers = $logs->users(User::get());
-        //$filteredUsers = User::all()->where('$logs->user_id')->get();
-        //$filteredUsers = $users->logs()->filter($searchPeriod); //Property [logs] does not exist
-        //$filteredUsers = $users->logs->filter($searchPeriod); //Property [logs] does not exist
-        //$filteredUsers = User::logs()->filter($searchPeriod); //Non-static method logs()
-        //$filteredUsers = User::->logs->filter($searchPeriod); //Property [logs] does not exist
-        //$user->logs->where //this syntax works in other locals so logs does exist
-
-        return view('users.logsAll', compact('users', 'logs', 'searchPeriod'));
+        $users = User::hasLogsInPeriod($searchPeriod);
+    
+        return view('users.logsAll', compact('users', 'searchPeriod'));
     }
 
-    // This can be... easier...
-    // But I'll let you puzzle that one out. :)
     public function getVenueLogs()
     {
-        $searchPeriod = request(['searchPeriod']);
+        $searchPeriod = request('searchPeriod','12'); 
 
-        $venues = Venue::get();
+        $venues = Venue::get(); //still want to see all venues, even with no logs unlike userlogs
 
         $logs = Log::latest()
-            ->filter($searchPeriod)
+            ->months($searchPeriod)
             ->get();
 
         return view('venues.logsAll', compact('venues','logs','searchPeriod' ));

@@ -25,6 +25,8 @@ class Log extends Model
         'submitted',
     ];
 
+    protected $with = ['user'];
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -35,23 +37,19 @@ class Log extends Model
         return $this->belongsTo(Venue::class);
     }
 
-    public function approvedBy()
+    public function getApprovedByUserAttribute()
     {
-        //TODO AppovedBy lookup doesnt work
-
-        // return $this->belongsTo(User::class, 'id');
-        return $this->belongsTo(User::class, 'approvedBy');
+        return User::findOrNew($this->approvedBy);
     }
 
-    public function scopeFilter($query, $filters)
+    public function scopeMonths($query, $months)
     {
-        if ($searchPeriod = $filters['searchPeriod']) {
             $endDate = new Carbon('now');
-            $startDate = date('Y-m-d', strtotime("-$searchPeriod months"));
+            $startDate = date('Y-m-d', strtotime("-{$months} months"));
 
             $query->whereBetween('dateWorked', [$startDate, $endDate]);
-        }
     }
+
     public static function archives()
     {
         //TODO cant get this to work from tutoial example

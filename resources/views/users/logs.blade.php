@@ -15,7 +15,7 @@
       </tr>
     </thead>
     
-    @foreach($user->logs as $log)
+    @foreach($user->logs()->months($searchPeriod)->get() as $log)
         <tr>
             <td align="center"><strong>{{ $log->hours }}</strong></td>
             <td>{{ date('jS M y', strtotime($log->dateWorked)) }}</td> 

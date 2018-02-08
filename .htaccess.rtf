@@ -1,0 +1,74 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf830
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fmodern\fcharset0 Courier-Oblique;\f2\fmodern\fcharset0 Courier;
+}
+{\colortbl;\red255\green255\blue255;\red67\green67\blue67;\red254\green254\blue254;\red135\green135\blue135;
+\red246\green246\blue255;\red0\green0\blue0;\red10\green86\blue216;\red14\green110\blue109;\red38\green38\blue38;
+\red17\green137\blue135;}
+{\*\expandedcolortbl;;\cssrgb\c33333\c33333\c33333;\cssrgb\c99608\c99608\c99608;\cssrgb\c60000\c60000\c60000;
+\cssrgb\c97255\c97255\c100000;\cssrgb\c0\c0\c0;\cssrgb\c0\c43529\c87843;\cssrgb\c0\c50196\c50196;\cssrgb\c20000\c20000\c20000;
+\cssrgb\c0\c60000\c60000;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f0\fs32 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 RewriteEngine on
+\f1\i\fs24 \cf4 \cb5 \strokec4 \
+\pard\pardeftab720\sl280\partightenfactor0
+\cf4 \
+## Fix missing image and file requests
+\f2\i0 \cf6 \strokec6 \
+
+\f1\i \cf4 \strokec4 ## Change each of the two \{REQUEST_URI\} lines to specify the missing file 404 requests to check against.
+\f2\i0 \cf6 \strokec6 \
+
+\f1\i \cf4 \strokec4 ## The replacement file(s) to serve should go into a server directory called "missing" located under public_html/
+\f2\i0 \cf6 \strokec6 \
+
+\f1\i \cf4 \strokec4 ## See https://journalxtra.com/web-development/fix-missing-file-404-requests/
+\f2\i0 \cf6 \strokec6 \
+\pard\pardeftab720\sl280\partightenfactor0
+\cf7 \strokec7  \cf6 \strokec6 \
+\pard\pardeftab720\sl280\partightenfactor0
+
+\f1\i \cf4 \strokec4 ## Fix Bad Image Requests
+\f2\i0 \cf6 \strokec6 \
+\pard\pardeftab720\sl280\partightenfactor0
+\cf8 \strokec8 RewriteCond\cf7 \strokec7  %\cf9 \strokec9 \{\cf10 \strokec10 REQUEST_FILENAME\cf9 \strokec9 \}\cf7 \strokec7  !-\cf8 \strokec8 f\cf6 \strokec6 \
+\pard\pardeftab720\sl280\partightenfactor0
+
+\f1\i \cf4 \strokec4 ## Add image file types to check against here
+\f2\i0 \cf6 \strokec6 \
+\pard\pardeftab720\sl280\partightenfactor0
+\cf8 \strokec8 RewriteCond\cf7 \strokec7  %\cf9 \strokec9 \{\cf10 \strokec10 REQUEST_URI\cf9 \strokec9 \}\cf7 \strokec7  \cf9 \strokec9 .(\cf6 \strokec6 gif\cf7 \strokec7 |\cf6 \strokec6 jpe\cf9 \strokec9 ?\cf6 \strokec6 g\cf7 \strokec7 |\cf6 \strokec6 png\cf7 \strokec7 |\cf6 \strokec6 bmp\cf7 \strokec7 |\cf6 \strokec6 tiff\cf7 \strokec7 |\cf6 \strokec6 xcf\cf7 \strokec7 |\cf6 \strokec6 psd\cf7 \strokec7 |\cf6 \strokec6 ico\cf7 \strokec7 |\cf6 \strokec6 svg\cf9 \strokec9 )$\cf7 \strokec7  \cf9 \strokec9 [\cf10 \strokec10 NC\cf9 \strokec9 ]\cf6 \strokec6 \
+\pard\pardeftab720\sl280\partightenfactor0
+
+\f1\i \cf4 \strokec4 ## Specify the file to serve instead
+\f2\i0 \cf6 \strokec6 \
+RewriteRule\cf7 \strokec7  \cf9 \strokec9 .\cf7 \strokec7 * /\cf6 \strokec6 missing\cf7 \strokec7 /\cf6 \strokec6 missing\cf9 \strokec9 .\cf6 \strokec6 gif\cf7 \strokec7  \cf9 \strokec9 [\cf10 \strokec10 L\cf9 \strokec9 ]\cf6 \strokec6 \
+\pard\pardeftab720\sl280\partightenfactor0
+\cf7 \strokec7  \cf6 \strokec6 \
+\pard\pardeftab720\sl280\partightenfactor0
+
+\f1\i \cf4 \strokec4 ## Fix Bad File Requests
+\f2\i0 \cf6 \strokec6 \
+
+\f1\i \cf4 \strokec4 ## Ignore specified virtual file(s)
+\f2\i0 \cf6 \strokec6 \
+\pard\pardeftab720\sl280\partightenfactor0
+\cf8 \strokec8 RewriteCond\cf7 \strokec7  %\cf9 \strokec9 \{\cf10 \strokec10 REQUEST_URI\cf9 \strokec9 \}\cf7 \strokec7  !^/\cf6 \strokec6 robots\cf9 \strokec9 .\cf6 \strokec6 txt\cf7 \strokec7 /\cf9 \strokec9 ?\cf7 \strokec7  \cf9 \strokec9 [\cf8 \strokec8 NC\cf9 \strokec9 ]\cf6 \strokec6 \
+\cf8 \strokec8 RewriteCond\cf7 \strokec7  %\cf9 \strokec9 \{\cf10 \strokec10 REQUEST_FILENAME\cf9 \strokec9 \}\cf7 \strokec7  !-\cf6 \strokec6 f\
+\pard\pardeftab720\sl280\partightenfactor0
+
+\f1\i \cf4 \strokec4 ## Add file types to check here.
+\f2\i0 \cf6 \strokec6 \
+
+\f1\i \cf4 \strokec4 ## Put a replacement document in the "missing" directory for each specified file type.
+\f2\i0 \cf6 \strokec6 \
+
+\f1\i \cf4 \strokec4 ## The replacement document can be an empty text file but with the same extension type as the file it is served in place of.
+\f2\i0 \cf6 \strokec6 \
+\pard\pardeftab720\sl280\partightenfactor0
+\cf8 \strokec8 RewriteCond\cf7 \strokec7  %\cf9 \strokec9 \{\cf10 \strokec10 REQUEST_URI\cf9 \strokec9 \}\cf7 \strokec7  \cf9 \strokec9 .(\cf6 \strokec6 css\cf7 \strokec7 |\cf6 \strokec6 html\cf9 \strokec9 ?\cf7 \strokec7 |\cf6 \strokec6 js\cf7 \strokec7 |\cf6 \strokec6 php\cf7 \strokec7 |\cf6 \strokec6 shtml\cf7 \strokec7 |\cf6 \strokec6 txt\cf9 \strokec9 )$\cf7 \strokec7  \cf9 \strokec9 [\cf10 \strokec10 NC\cf9 \strokec9 ]\cf6 \strokec6 \
+RewriteRule\cf7 \strokec7  \cf9 \strokec9 .\cf7 \strokec7 * /\cf6 \strokec6 missing\cf7 \strokec7 /\cf6 \strokec6 missing\cf9 \strokec9 .\cf7 \strokec7 %\cf10 \strokec10 1\cf7 \strokec7  \cf9 \strokec9 [\cf10 \strokec10 L\cf9 \strokec9 ]\cf6 \strokec6 \
+}

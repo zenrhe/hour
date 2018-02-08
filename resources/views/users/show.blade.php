@@ -13,7 +13,7 @@
     <div class="row" >
         <div class="col-sm">
             <div class="avatar">
-                <a href="#"><img alt="" src="/images/profile_thumb.jpg"/></a>
+                <img src="{!! $user->avatar() !!}" alt="">
             </div>
         </div>
         <div class="col-sm">

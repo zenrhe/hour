@@ -42,6 +42,7 @@ class UsersController extends Controller
         }
         $logs = User::find($searchUser)->logs;
         $user = User::find($searchUser);
-        return view('users.show', compact('user', 'logs'));
+        // $searchPeriod = 12;
+        return view('users.show', compact('user', 'logs', 'searchPeriod'));
     } 
 }

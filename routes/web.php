@@ -13,12 +13,40 @@
 // https://laravel.com/docs/5.5/controllers#resource-controllers
 
 */
+use Illuminate\Support\Facades\Storage;
 
 
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('avatar', function () {
+    return view('profile.avatar');
+});
 
+Route::post('avatars',function(){
+
+    //request()->file('avatar')->store('avatars'); //just stores with random filename. Returns path
+
+    //Setting File Name and Store
+    $file = request()->file('avatar');
+
+    $ext = $file->guessClientExtension();
+
+    //Store to storage/app/avatars/user_id/avatar.{extension}
+    $file->storeAs('public/avatars/'.auth()->id(),"testAvatar.{$ext}");
+
+    //echo asset('storage/public/avatars/11/avatar.jpg');
+
+    //$visibility = Storage::getVisibility('$url');
+
+
+    // $url = Storage::url('avatars/11/avatar.jpg');
+     dd(asset('storage/public/avatars/11/avatar.jpg'));
+     //dd($visibility);
+
+
+return back();
+});
 //Users
 Route::get('users', 'UsersController@index')->name('users.index');
 Route::get('users/{user}', 'UsersController@show')->name('users.show');
@@ -43,5 +71,15 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+// Route::get('avatars/{id}/{filename}', function($filename) {
+
+//     //When a avatar file request is made
+
+//     //if the files cant be found, return a placeholder image
+//     // return response( file_get_contents('./avatars/placeholder.jpeg') )
+//     return response( file_get_contents('./avatars/11/avatar.jpeg') )
+//         ->header('Content-Type','image/jpeg');
+
+// });
 
 

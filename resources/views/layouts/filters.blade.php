@@ -2,7 +2,7 @@
     <div class='col-lg-6 input-group filter'>
 <?php
 //Get Search Perdiod to provide Active class for css styling
-$searchPeriod = reset($searchPeriod); //convert array to first value string
+// $searchPeriod = reset($searchPeriod); //convert array to first value string
 
 //Add Date Filter restriction
 if ($searchPeriod == null) {
