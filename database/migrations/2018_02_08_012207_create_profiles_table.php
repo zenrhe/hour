@@ -16,12 +16,19 @@ class CreateProfilesTable extends Migration
         Schema::create('profiles', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
-            $table->integer('default_venue_1')->default(NULL)->nullable();
-            $table->integer('default_venue_2')->default(NULL)->nullable();
-            $table->integer('default_venue_3')->default(NULL)->nullable();
-            $table->text('theme')->default(NULL)->nullable(); //This should become a lookup when implemented
-            $table->timestamps();
 
+            $table->string('position')->nullable($value = true)	;            
+            $table->integer('default_venue_1')->nullable($value = true);
+            $table->integer('default_venue_2')->nullable($value = true);
+            $table->integer('default_venue_3')->nullable($value = true);
+            $table->text('theme')->nullable(); //This should become a lookup when implemented
+            $table->string('nickname')->nullable($value = true)	;
+            $table->string('avatar')->nullable($value = true);
+            $table->text('address')->nullable($value = true)	;
+            $table->text('bio')->nullable($value = true)	;
+            $table->text('phone')->nullable($value = true)	;
+            $table->date('dob')->nullable($value = true)	;
+            $table->timestamps();
         });
     }
 

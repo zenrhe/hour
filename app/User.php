@@ -9,25 +9,26 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+
+    protected $fillable = [
+        'name', 'email', 'password',
+    ];
+
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
+
+
     public function logs()
     {
        // return $this->hasMany('App\Log');
         return $this->hasMany(Log::class);
     }
-    /**
-     * The attributes that are mass assignable.
-     */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
-
-    /**
-     * The attributes that should be hidden for arrays.
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
    
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
     public function isAdmin()
     {    
         return $this->admin; // this looks for an admin column in your users table

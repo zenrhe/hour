@@ -28,7 +28,7 @@
             </td>
             <!--Show Approval Information
             <!-- <td>{{ $log->approvedBy }}  </td>  -->
-            <!-- <td> $log->approvedBy->first_name </td>  -->
+            <!-- <td> $log->approvedByUser->name</td>  -->
             <!-- <td>{{  date('jS M y', strtotime($log->approvedAt)) }}</td>  -->
             @else
             <td>  

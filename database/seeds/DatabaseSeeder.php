@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             UsersTableSeeder::class,
             VenuesTableSeeder::class,
             LogsTableSeeder::class,
+            // ProfileTableSeeder::class,
         ]);
     }
 }

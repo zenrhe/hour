@@ -22,7 +22,7 @@
                 <div class="circle-tile-content green">
                     <div class="circle-tile-description text-faded">This Month</div>
                     <div class="circle-tile-number text-faded ">
-                    {{ $user->logs->where('submitted', '>=', Carbon\Carbon::now()->startOfMonth())->sum('hours') }} 
+                    {{ $user->logs->where('dateWorked', '>=', Carbon\Carbon::now()->startOfMonth())->sum('hours') }} 
                     </div>
                 <!-- <a class="circle-tile-footer" href="#">More Info <i class="fa fa-chevron-circle-right"></i></a> -->
                 </div>

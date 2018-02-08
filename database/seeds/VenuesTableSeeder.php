@@ -15,7 +15,7 @@ class VenuesTableSeeder extends Seeder
         //factory(App\User::class)->create();
 
         //Create Multiple Users
-        $count = 10;
+        $count = 3;
         factory(App\Venue::class,$count)->create();
 
     }

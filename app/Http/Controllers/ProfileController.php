@@ -3,10 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Profile;
+use App\User;
+use Auth;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('admin')->except('show');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +23,10 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        //
+        $profiles = Profile::get();
+
+        return view('profiles.index', compact('profiles'));
+
     }
 
     /**
@@ -44,9 +56,29 @@ class ProfileController extends Controller
      * @param  \App\Profile  $profile
      * @return \Illuminate\Http\Response
      */
-    public function show(Profile $profile)
+    // public function show(Profile $profile)
+
+    public function show(User $user)
     {
-        //
+        //Only admins can view other users profiles. 
+        //if current user matches search user then return the view
+        //else check if admin or redirect
+        $currentUser = Auth::user()->id;
+        $searchUser = $user->id;
+        
+        //If Current user not viewing their own logs
+        if($currentUser !== $user)
+        {
+            if(!Auth::user()->isAdmin())
+            {
+                $searchUser = $currentUser;
+            }
+        }
+ 
+        $user = User::find($searchUser);
+        $searchPeriod = 12;
+
+        return view('profile.show', compact('user', 'searchPeriod'));
     }
 
     /**

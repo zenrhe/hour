@@ -15,15 +15,10 @@ use Faker\Generator as Faker;
 //        App\Currency::pluck('id')->random()
 
 
-$factory->define(App\Log::class, function (Faker $faker) {
+$factory->define(App\Profile::class, function (Faker $faker) {
     return [
+
         'user_id' => App\User::all()->random()->id,
-        'hours' => $faker->randomDigitNotNull(),
-        'dateWorked' => $faker->dateTimeBetween('-1 years', 'now'),
-        'description' => $faker->sentence(15),
-        'venue_id' => App\Venue::all()->random()->id,
-        'submitted'  => $faker->dateTimeBetween('-1 years', 'now'),
-        'approvedBy' => App\User::all()->random()->id,
-        'approvedAt'  => $faker->dateTimeBetween('-1 years', 'now'),
+        
     ];
 });

@@ -18,7 +18,7 @@
     </style>
 </head>
 <body>
-    
+    <!-- Simplet Test file uploa-->
 <img src="{{asset('avatars/11/avatar.jpeg')}}"/>
 <img src="{{asset('avatars/{{$user->id}}/avatar.jpeg')}}"/>
 <form method="POST" action="/avatars" enctype="multipart/form-data">

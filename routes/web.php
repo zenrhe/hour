@@ -51,6 +51,10 @@ return back();
 Route::get('users', 'UsersController@index')->name('users.index');
 Route::get('users/{user}', 'UsersController@show')->name('users.show');
 
+//Profiles
+Route::get('profile', 'profileController@index')->name('profile.index');
+Route::get('profile/{user}', 'profileController@show')->name('profile.show');
+
 //Venues
 Route::get('venues', 'VenueController@index')->name('venues.index');
 
