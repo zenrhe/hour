@@ -72,7 +72,7 @@
          </div>
 
          <div class="form-group ">
-            <!-- Venue  -->
+            <!-- Venue  --> 
             @foreach($venues as $venue)
               <a href="#" role="button" id="venue_{{ $venue->id }}" class="btn btn-default" onClick="document.getElementById('venue').value ={{ $venue->id }}">
               <i class="fas fa-home fa-1x"></i>  
