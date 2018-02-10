@@ -265,6 +265,14 @@ margin:1em;
   border: 5px solid rgba(255,255,255,0.5);
 }
 
+ .edit 
+{
+  float:right;
+}
+.save p
+{
+  text-align:right;
+}
 
 /**TABLES*/
 .table
@@ -364,7 +372,7 @@ textarea:focus {
 .submenu li {
   border-bottom: 1px solid #4b4a5e;
   list-style-type:none;
-  margin-left:-1em;
+  margin-left:-1.5em;
 }
 
 .submenu a {

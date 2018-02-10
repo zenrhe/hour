@@ -54,6 +54,7 @@ Route::get('users/{user}', 'UsersController@show')->name('users.show');
 //Profiles
 Route::get('profile', 'profileController@index')->name('profile.index');
 Route::get('profile/{user}', 'profileController@show')->name('profile.show');
+Route::post('ajaxRequest', 'profileController@updateContactDetails')->name('profile.updateContactDetails');
 
 //Venues
 Route::get('venues', 'VenueController@index')->name('venues.index');

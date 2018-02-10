@@ -47,7 +47,35 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+    }
+    
+    /**
+     * Update Contact Details
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function updateContactDetails(Request $request)
+    {
+        $data = $request->all(); // This will get all the request data.
+
+        dd($data);
+
+
+        // $validated = $this->validate($request, [
+        //     'phone' => 'max:100',
+        //     'email' => 'email',
+        //     'address' => 'text',
+        // ]);
+
+
+        // $request->session()->flash(
+        //     'success',
+        //     'Request Happened ') 
+        // );
+
+        return back()->withInput();
     }
 
     /**
@@ -78,7 +106,7 @@ class ProfileController extends Controller
         $user = User::find($searchUser);
         $searchPeriod = 12;
 
-        return view('profile.show', compact('user', 'searchPeriod'));
+        return view('profile.show2', compact('user', 'searchPeriod'));
     }
 
     /**

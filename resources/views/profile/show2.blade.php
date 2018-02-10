@@ -55,38 +55,55 @@
     </div> 
     </div>
 </div>
+
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 <div class="profile_main">
     <div class="row">    
         <div class="col-sm-6 col-md-4 col-12">
             <div class="contact_details ">
                 <div class="profile_card_header"><i class="fas fa-address-card"></i>  Contact Details</div>
-                    <ul class="submenu">
-                        <li><a href="#"><i class="fas fa-phone-square"></i>  
-                            Phone : {{ $user->profile->phone}}</a></li>
-                            
-                        <li><a href="#"><i class="fas fa-envelope-square"></i>
-                            Email : example@test.com </a></li>
-                    
-                        <!-- <li><a href="#"><i class="fa fa-calendar left-none"></i> Date of Birth : {{ date('jS M y', strtotime($user->profile->dob)) }} </a></li> -->
-                        <li><a href="#"><i class="fas fa-map-marker"></i>
-                            Address : {{ $user->profile->address}}</a></li>
-                    </ul>
-                </div>
-        </div>
-        <div class="col-sm-6 col-md-4 col-12">
-            <div class="profile_details ">
-                <div class="profile_card_header"><i class="fas fa-info-circle"></i>  Info</div>
-                    <ul class="submenu">
-                        <li><a href="#"><strong>Position: </strong><br/>
-                             {{ $user->profile->position}}</a></li>
-                        <li><a href="#"><strong>Bio: </strong><br/>
-                            {{ $user->profile->description}}</a></li>
-                    
+                <ul class="submenu">
+                    <li><a href="#"><i class="fas fa-phone-square"></i>  
+                        Phone : 
+                        <span id="phone" class="edit" contenteditable>
+                        {{ $user->profile->phone}}</span></a></li>
 
-                    </ul>
+                    <li><a href="#"><i class="fas fa-envelope-square"></i>
+                        Email : 
+                        <span id="email" class="edit" contenteditable>
+                        example@test.com </span></a></li>
+                
+                    <!-- <li><a href="#"><i class="fa fa-calendar left-none"></i> Date of Birth : {{ date('jS M y', strtotime($user->profile->dob)) }} </a></li> -->
+                    <li><a href="#"><i class="fas fa-map-marker"></i>
+                        Address : 
+                        <span id="address" class="edit" contenteditable>
+                        {{ $user->profile->address}}</span></a></li>
+                </ul>
                 </div>
-        </div>
-        <div class="col-sm-6 col-md-4 col-12">
+                <div class="profile_card_header save" style="margin-top:-1em"><a href="#" onCLick="saveContactDetails()"><i class="fas fa-check fa-lg" style="color:green"></i>   Save</div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-12">
+                <div class="profile_details ">
+                    <div class="profile_card_header"><i class="fas fa-info-circle"></i>  Info</div>
+                        <ul class="submenu">
+                            <li><a href="#"><strong>Position: </strong><br/>
+                                {{ $user->profile->position}}</a></li>
+                            <li><a href="#"><strong>Bio: </strong><br/>
+                                {{ $user->profile->description}}</a></li>
+                        
+
+                        </ul>
+                    </div>
+                </div>
+    <div class="col-sm-6 col-md-4 col-12">
             <div class="default_venues">
                 <div class="profile_card_header"><i class="fas fa-building"></i> Default Venues</div>
                 <ul class="submenu">
@@ -102,7 +119,7 @@
                     {{ $user->profile->v2name}}
                     ( {{ $user->logs->where('dateWorked', '>=', Carbon\Carbon::now()->startOfMonth())->sum('hours') }} /
                     {{ $user->logs->sum('hours') }} )
-          </a>
+                </a>
                 </li>
                 <li><a href="#" role="button" id="venue_{{ $user->profile->venue1->name}}" class="btn btn-default">
                     <i class="fas fa-home fa-1x"></i>  
@@ -110,7 +127,7 @@
                     ( )
                 </a>
                 </li>
-                    </ul>
+                </ul>
                 </div>
             </div>
         </div>
@@ -129,5 +146,75 @@
     <!-- <h4>This Month: {{ $user->logs->where('submitted', '>=', Carbon\Carbon::now()->startOfMonth())->sum('hours') }} - Total: {{ $user->logs->sum('hours') }}</h4> -->
        
     @include('users.logs')
+
+@endsection
+
+@section('footer')
+
+<script type="text/javascript">
+ 
+ function saveContactDetails() {
+        
+    data = {};
+    data['phone'] = document.getElementById('phone').innerHTML
+    data['email'] = document.getElementById('email').innerHTML
+    data['address'] = document.getElementById('address').innerHTML
+
+
+    $.ajaxSetup({
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    
+    var $url = window.location.href;
+    // alert($url);
+    
+    $.ajax({
+        type:'POST',
+        url: '/ajaxRequest',
+        dataType: 'text/plain',
+        data: data,
+        success:function(msg){
+            alert(msg.success);
+            console.log(msg);
+        },
+    });
+    
+}
+
+    // function saveContactDetails2(){
+
+    //   alert('test');
+    // // data = {};
+    // // data['val'] = $(this).text();
+    // // data['id'] = $(this).parent('tr').attr('data-row-id');
+    // // data['index'] = $(this).attr('col-index');
+    // //   if($(this).attr('oldVal') === data['val'])
+    // // return false;
+    
+    // });
+    // $.ajax({   
+          
+    //       type: "POST",  
+    //       url: "server.php",  
+    //       cache:false,  
+    //       data: data,
+    //       dataType: "json",       
+    //       success: function(response)  
+    //       {   
+    //         //$("#loading").hide();
+    //         if(response.status) {
+    //           $("#msg").removeClass('alert-danger');
+    //           $("#msg").addClass('alert-success').html(response.msg);
+    //         } else {
+    //           $("#msg").removeClass('alert-success');
+    //           $("#msg").addClass('alert-danger').html(response.msg);
+    //         }
+    //       }   
+    //     });
+
+
+</script>
 
 @endsection
