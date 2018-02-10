@@ -11,3 +11,5 @@ npm-debug.log
 yarn-error.log
 .env
 public/.DS_Store
+.DS_Store
+bootstrap/.DS_Store

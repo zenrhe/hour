@@ -194,7 +194,7 @@ function saveInfo() {
     $("#position_input").val($("#position" ).html());
     $("#bio_input").val($("#bio" ).html());
 }
-    // $( "#contact_form" ).submit();
+    // $( "#contact_form" ).submit(); //doesnt work
 
     // data = {};
     // data['phone'] = document.getElementById('phone').innerHTML
@@ -207,12 +207,13 @@ function saveInfo() {
     //     }
     // });
     
-    // var $url = window.location.href;
+    // var $url = window.location.href; //gives 405 error
     // alert($url);
     
+    //profile/user_id is current route
     // $.ajax({
     //     type:'POST',
-    //     url: '/ajaxRequest',
+    //     url: '/profile/', 
     //     dataType: 'text/plain',
     //     data: data,
     //     success:function(msg){
