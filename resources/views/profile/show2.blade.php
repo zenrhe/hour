@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('pageTitle', '{{ $user->name}}')
+@section('pageTitle', '')
 
 @section('content')
   
@@ -57,19 +57,21 @@
 </div>
 
 @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
+    @include('layouts.errors')
 @endif
+@if (session()->has('error'))
+    @include('layouts.errors')
+@endif
+@if (session()->has('success'))
+    @include('layouts.success')
+@endif
+
 <div class="profile_main">
     <div class="row">    
         <div class="col-sm-6 col-md-4 col-12">
             <div class="contact_details ">
                 <div class="profile_card_header"><i class="fas fa-address-card"></i>  Contact Details</div>
+                
                 <ul class="submenu">
                     <li><a href="#"><i class="fas fa-phone-square"></i>  
                         Phone : 
@@ -87,23 +89,48 @@
                         <span id="address" class="edit" contenteditable>
                         {{ $user->profile->address}}</span></a></li>
                 </ul>
+                <form method="POST" action="/profile/{{$user->id}}">
+                    {{ csrf_field() }}
+                    <input type="hidden" id="section" name="section" value="contact">                     
+                    <input type="hidden" id="phone_input" name="phone"> 
+                    <input type="hidden" id="email_input" name="email"> 
+                    <input type="hidden" id="address_input" name="address"> 
+                    <div class="profile_card_header save" style="margin-top:-1em">
+                        <button class="btn btn-info " name="submit" type="submit" onCLick="saveContactDetails()" >
+                        Save
+                        </button>
+                    </div>
+                <!-- <div class="profile_card_header save" style="margin-top:-1em"><a href="#" onCLick="saveContactDetails()"><i class="fas fa-check fa-lg" style="color:green"></i>   Save</div> -->
+                </form>
                 </div>
-                <div class="profile_card_header save" style="margin-top:-1em"><a href="#" onCLick="saveContactDetails()"><i class="fas fa-check fa-lg" style="color:green"></i>   Save</div>
             </div>
             <div class="col-sm-6 col-md-4 col-12">
                 <div class="profile_details ">
                     <div class="profile_card_header"><i class="fas fa-info-circle"></i>  Info</div>
-                        <ul class="submenu">
-                            <li><a href="#"><strong>Position: </strong><br/>
-                                {{ $user->profile->position}}</a></li>
-                            <li><a href="#"><strong>Bio: </strong><br/>
-                                {{ $user->profile->description}}</a></li>
-                        
-
-                        </ul>
+                    <ul class="submenu">
+                        <li><a href="#"><strong>Position: </strong><br/>
+                            <span id="position" class="edit" contenteditable>
+                            {{ $user->profile->position}}</span></a></li>
+                        <li>
+                            <a href="#"><strong>Bio: </strong><br/>
+                            <span id="bio" class="edit" contenteditable>
+                            {{ $user->profile->description}}</span></a></li>
+                    </ul>
+                    <div class="profile_card_header save" style="margin-top:-1em">
+                        <form method="POST" action="/profile/{{$user->id}}">
+                            {{ csrf_field() }}
+                            <input type="hidden" id="section" name="section" value="bio">                     
+                            <input type="hidden" id="position_input" name="position"> 
+                            <input type="hidden" id="bio_input" name="bio"> 
+                            
+                                <button class="btn btn-default " name="submit" type="submit" onCLick="saveInfo()" >
+                                <i class="fas fa-check fa-lg" style="color:green"></i> Save
+                                </button>
+                        </form>
+                    </div>
                     </div>
                 </div>
-    <div class="col-sm-6 col-md-4 col-12">
+            <div class="col-sm-6 col-md-4 col-12">
             <div class="default_venues">
                 <div class="profile_card_header"><i class="fas fa-building"></i> Default Venues</div>
                 <ul class="submenu">
@@ -128,6 +155,18 @@
                 </a>
                 </li>
                 </ul>
+                <div class="profile_card_header save" style="margin-top:-1em">
+                        <form method="POST" action="/profile/{{$user->id}}">
+                            {{ csrf_field() }}
+                            <input type="hidden" id="section" name="section" value="venues">                     
+                            <input type="hidden" id="v1" name="v1">                     
+                            <input type="hidden" id="v2" name="v2"> 
+                            <input type="hidden" id="v3" name="v3"> 
+                                <button class="btn btn-info " name="submit" type="submit" onCLick="" >
+                                Save
+                                </button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -136,15 +175,6 @@
 
 <div class="profile_card_header"><i class="fas fa-hourglass"></i>  Hours Logged </div>
 
-
-    @if (session()->has('success'))
-        @include('layouts.success')
-    @endif
-
-    
- 
-    <!-- <h4>This Month: {{ $user->logs->where('submitted', '>=', Carbon\Carbon::now()->startOfMonth())->sum('hours') }} - Total: {{ $user->logs->sum('hours') }}</h4> -->
-       
     @include('users.logs')
 
 @endsection
@@ -154,65 +184,44 @@
 <script type="text/javascript">
  
  function saveContactDetails() {
-        
-    data = {};
-    data['phone'] = document.getElementById('phone').innerHTML
-    data['email'] = document.getElementById('email').innerHTML
-    data['address'] = document.getElementById('address').innerHTML
-
-
-    $.ajaxSetup({
-        headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
     
-    var $url = window.location.href;
+    $("#phone_input").val($("#phone" ).html());
+    $("#email_input").val($("#email" ).html());
+    $("#address_input").val($("#address" ).html());
+}
+function saveInfo() {
+    
+    $("#position_input").val($("#position" ).html());
+    $("#bio_input").val($("#bio" ).html());
+}
+    // $( "#contact_form" ).submit();
+
+    // data = {};
+    // data['phone'] = document.getElementById('phone').innerHTML
+    // data['email'] = document.getElementById('email').innerHTML
+    // data['address'] = document.getElementById('address').innerHTML
+
+    // $.ajaxSetup({
+    //     headers: {
+    //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //     }
+    // });
+    
+    // var $url = window.location.href;
     // alert($url);
     
-    $.ajax({
-        type:'POST',
-        url: '/ajaxRequest',
-        dataType: 'text/plain',
-        data: data,
-        success:function(msg){
-            alert(msg.success);
-            console.log(msg);
-        },
-    });
-    
-}
-
-    // function saveContactDetails2(){
-
-    //   alert('test');
-    // // data = {};
-    // // data['val'] = $(this).text();
-    // // data['id'] = $(this).parent('tr').attr('data-row-id');
-    // // data['index'] = $(this).attr('col-index');
-    // //   if($(this).attr('oldVal') === data['val'])
-    // // return false;
-    
+    // $.ajax({
+    //     type:'POST',
+    //     url: '/ajaxRequest',
+    //     dataType: 'text/plain',
+    //     data: data,
+    //     success:function(msg){
+    //         alert(msg.success);
+    //         console.log(msg);
+    //     },
     // });
-    // $.ajax({   
-          
-    //       type: "POST",  
-    //       url: "server.php",  
-    //       cache:false,  
-    //       data: data,
-    //       dataType: "json",       
-    //       success: function(response)  
-    //       {   
-    //         //$("#loading").hide();
-    //         if(response.status) {
-    //           $("#msg").removeClass('alert-danger');
-    //           $("#msg").addClass('alert-success').html(response.msg);
-    //         } else {
-    //           $("#msg").removeClass('alert-success');
-    //           $("#msg").addClass('alert-danger').html(response.msg);
-    //         }
-    //       }   
-    //     });
+    
+
 
 
 </script>

@@ -267,7 +267,7 @@ margin:1em;
 
  .edit 
 {
-  float:right;
+  /* float:right; */
 }
 .save p
 {

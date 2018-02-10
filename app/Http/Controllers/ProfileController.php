@@ -4,16 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Profile;
 use App\User;
+use App\Log;
+use App\Venue;
+
 use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+
+use Session;
+use Carbon\Carbon;
 
 class ProfileController extends Controller
 {
 
     public function __construct()
     {
-        $this->middleware('auth');
-        $this->middleware('admin')->except('show');
+        // $this->middleware('auth');
+        // $this->middleware('admin')->except('show', 'update');
     }
     
     /**
@@ -56,26 +63,74 @@ class ProfileController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function updateContactDetails(Request $request)
+    public function updateContactDetails(User $user, Request $request)
+    {
+
+        $validated = $this->validate($request, [
+            'phone' => 'max:100',
+            'email' => 'email',
+            'address' => 'max:200',
+        ]);
+
+        //First Udate Profile
+        $profile = Profile::find($user->profile->id);
+
+            $profile->phone = request('phone');
+            $profile->address = request('address');
+
+        $profile->save();
+        $request->session()->flash(
+            'success',
+            'Contact Details Updated'
+        );
+
+        //Then Update User
+        //TODO this save isn't working
+        $updateUser = User::find($user->id);
+            $updateUser->email = request('email');
+        $updateUser->save();
+        $request->session()->flash(
+            'error',
+            'Currently you cannot update the email address'
+        );
+    }
+        /**
+     * Update Bio (position and description)
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function updateBio(User $user, Request $request) 
+    {
+        $validated = $this->validate($request, [
+            'position' => 'max:200',
+            'description' => 'max:200',
+        ]);
+
+        //First Update Profile
+        $profile = Profile::find($user->profile->id);
+
+            $profile->position = request('position');
+            $profile->description = request('bio');
+
+        $profile->save();
+        $request->session()->flash(
+            'success',
+            'Bio Updated'
+        );
+
+    }
+        /**
+     * Update Venue Details
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function updateVenues(User $user, Request $request)
     {
         $data = $request->all(); // This will get all the request data.
 
         dd($data);
-
-
-        // $validated = $this->validate($request, [
-        //     'phone' => 'max:100',
-        //     'email' => 'email',
-        //     'address' => 'text',
-        // ]);
-
-
-        // $request->session()->flash(
-        //     'success',
-        //     'Request Happened ') 
-        // );
-
-        return back()->withInput();
     }
 
     /**
@@ -127,9 +182,25 @@ class ProfileController extends Controller
      * @param  \App\Profile  $profile
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Profile $profile)
+    public function update(User $user, Request $request)
     {
-        //
+
+        //Profile is split into diff sections
+        $updatearea = request('section');
+
+        if($updatearea == 'contact'){
+            
+            $this->updateContactDetails($user, $request);
+        } 
+        elseif($updatearea == 'bio'){
+            
+            $this->updateBio($user, $request);
+        }
+        // elseif($updatearea = 'venues'){
+        //     $this->updateVenues($user, $request);
+        // }
+
+        return back();
     }
 
     /**

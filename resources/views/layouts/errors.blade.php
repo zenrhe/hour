@@ -4,4 +4,6 @@
           <li> {{$error}} </li>
         @endforeach
       </ul>
+    <p>{{ session()->get('error') }}</p>
+      
     </div>
