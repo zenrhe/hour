@@ -16,7 +16,7 @@
 
             <div class="content">
                 <div class="title">
-                 Welcome Page
+                 Welcome Page.
                 </div>
 
             </div>
