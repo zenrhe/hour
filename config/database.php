@@ -2,9 +2,9 @@
 
 $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
 
-$host = $url["mysql://b81abd8eab495b:41cf0d40@eu-cdbr-west-02.cleardb.net/heroku_6d2466599644c44?reconnect=true"];
-$username = $url["b81abd8eab495b"];
-$password = $url["41cf0d40"];
+$host = $url["host"];
+$username = $url["user"];
+$password = $url["pass"];
 $database = substr($url["path"], 1);
 
 return [
@@ -20,7 +20,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    'default' => env('DB_CONNECTION', 'heroku_mysql_connection'),
 
     /*
     |--------------------------------------------------------------------------
@@ -38,8 +38,6 @@ return [
     |
     */
 
-    
-
     'connections' => [
 
         'sqlite' => [
@@ -50,11 +48,11 @@ return [
 
         'mysql' => [
             'driver' => 'mysql',
-            'host' => $host,
+            'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
-            'database' => $database,
-            'username' => $username,
-            'password' => $password,
+            'database' => env('DB_DATABASE', 'forge'),
+            'username' => env('DB_USERNAME', 'forge'),
+            'password' => env('DB_PASSWORD', ''),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
@@ -62,20 +60,6 @@ return [
             'strict' => true,
             'engine' => null,
         ],
-        // 'mysql' => [
-        //     'driver' => 'mysql',
-        //     'host' => env('DB_HOST', '127.0.0.1'),
-        //     'port' => env('DB_PORT', '3306'),
-        //     'database' => env('DB_DATABASE', 'forge'),
-        //     'username' => env('DB_USERNAME', 'forge'),
-        //     'password' => env('DB_PASSWORD', ''),
-        //     'unix_socket' => env('DB_SOCKET', ''),
-        //     'charset' => 'utf8mb4',
-        //     'collation' => 'utf8mb4_unicode_ci',
-        //     'prefix' => '',
-        //     'strict' => true,
-        //     'engine' => null,
-        // ],
 
         'pgsql' => [
             'driver' => 'pgsql',
@@ -100,7 +84,17 @@ return [
             'charset' => 'utf8',
             'prefix' => '',
         ],
-
+        'heroku_mysql_connection' => array(
+            'driver' => 'mysql',
+            'host' => $host,
+            'database' => $database,
+            'username' => $username,
+            'password' => $password,
+            'charset' => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix' => '',
+        ),
+        
     ],
 
     /*
