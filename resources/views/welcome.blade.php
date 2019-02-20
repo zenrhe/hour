@@ -8,6 +8,7 @@
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
                     @else
+                    <h1>Testing</h1>
                         <a href="{{ route('login') }}">Login</a>
                         <a href="{{ route('register') }}">Register</a>
                     @endauth
