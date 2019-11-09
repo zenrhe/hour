@@ -16,37 +16,15 @@
 use Illuminate\Support\Facades\Storage;
 
 
+//Welcome Pages
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('avatar', function () {
-    return view('profile.avatar');
-});
 
-Route::post('avatars',function(){
+Route::get('/home', 'HomeController@index')->name('home');
 
-    //request()->file('avatar')->store('avatars'); //just stores with random filename. Returns path
+Auth::routes();
 
-    //Setting File Name and Store
-    $file = request()->file('avatar');
-
-    $ext = $file->guessClientExtension();
-
-    //Store to storage/app/avatars/user_id/avatar.{extension}
-    $file->storeAs('public/avatars/'.auth()->id(),"testAvatar.{$ext}");
-
-    //echo asset('storage/public/avatars/11/avatar.jpg');
-
-    //$visibility = Storage::getVisibility('$url');
-
-
-    // $url = Storage::url('avatars/11/avatar.jpg');
-     dd(asset('storage/public/avatars/11/avatar.jpg'));
-     //dd($visibility);
-
-
-return back();
-});
 //Users
 Route::get('users', 'UsersController@index')->name('users.index');
 Route::get('users/{user}', 'UsersController@show')->name('users.show');
@@ -72,9 +50,35 @@ Route::POST('logs', 'LogController@store');
 Route::get('userlogs/', 'LogController@getUserLogs');
 Route::get('venuelogs/', 'LogController@getVenueLogs');
 
-Auth::routes();
+//Avatar
+Route::get('avatar', function () {
+    return view('profile.avatar');
+});
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::POST('avatars',function(){
+
+    //request()->file('avatar')->store('avatars'); //just stores with random filename. Returns path
+
+    //Setting File Name and Store
+    $file = request()->file('avatar');
+
+    $ext = $file->guessClientExtension();
+
+    //Store to storage/app/avatars/user_id/avatar.{extension}
+    $file->storeAs('public/avatars/'.auth()->id(),"testAvatar.{$ext}");
+
+    //echo asset('storage/public/avatars/11/avatar.jpg');
+
+    //$visibility = Storage::getVisibility('$url');
+
+
+    // $url = Storage::url('avatars/11/avatar.jpg');
+     dd(asset('storage/public/avatars/11/avatar.jpg'));
+     //dd($visibility);
+
+
+return back();
+});
 
 // Route::get('avatars/{id}/{filename}', function($filename) {
 
