@@ -26,7 +26,7 @@
             <td> 
                 <i class="fas fa-check fa-lg" style="color:green"></i></i>
             </td>
-            <!--Show Approval Information
+            <!--Show Approval Information -->
             <!-- <td>{{ $log->approvedBy }}  </td>  -->
             <!-- <td> $log->approvedByUser->name</td>  -->
             <!-- <td>{{  date('jS M y', strtotime($log->approvedAt)) }}</td>  -->

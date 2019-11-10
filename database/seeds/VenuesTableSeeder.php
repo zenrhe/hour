@@ -11,10 +11,10 @@ class VenuesTableSeeder extends Seeder
      */
     public function run()
     {
-        //Create Single User
-        //factory(App\User::class)->create();
+        //Create Single Venue
+        //factory(App\Venue::class)->create();
 
-        //Create Multiple Users
+        //Create Multiple Venues
         $count = 3;
         factory(App\Venue::class,$count)->create();
 

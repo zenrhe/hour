@@ -13,3 +13,7 @@ yarn-error.log
 public/.DS_Store
 .DS_Store
 bootstrap/.DS_Store
+config/database.php
+env.example
+.env.example
+

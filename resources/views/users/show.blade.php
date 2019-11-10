@@ -52,14 +52,12 @@
 
     
     </div> 
-    </div>
-</div>
+    
+
     @if (session()->has('success'))
         @include('layouts.success')
     @endif
 
-    
- 
     <!-- <h4>This Month: {{ $user->logs->where('submitted', '>=', Carbon\Carbon::now()->startOfMonth())->sum('hours') }} - Total: {{ $user->logs->sum('hours') }}</h4> -->
        
     @include('users.logs')
