@@ -22,14 +22,35 @@ class UsersTableSeeder extends Seeder
         //factory(App\User::class,$count)->create();
 
         
+        //Admin User
         User::create(array(
+            'name' => 'zenrhe',
+            'first_name' => 'Rowan',
+            'last_name' => ' Evenstar',
             'email' => 'zenrhe@gmail.com',
-            'password' => Hash::make('test')
+            'password' => Hash::make('test'),
+            'admin' => '1',
+            'profile_id' => '1'
         ));
 
+        //Test User (not Admin)
         User::create(array(
-            'email' => 'dameramu@gmail.com',
-            'password' => Hash::make('test')
+            'name' => 'test',
+            'first_name' => 'Tester FN',
+            'last_name' => ' Tester LN',
+            'email' => 'test@example.com',
+            'password' => Hash::make('test'),
+            'admin' => '0'
+        ));
+
+        //Test User Admin
+        User::create(array(
+            'name' => 'test2',
+            'first_name' => 'Chris ',
+            'last_name' => ' Tenner',
+            'email' => 'test2@example.com',
+            'password' => Hash::make('test'),
+            'admin' => '1'
         ));
             
     }
