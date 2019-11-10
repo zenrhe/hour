@@ -13,8 +13,8 @@ class UsersController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
-        $this->middleware('admin')->except('show');
+        // $this->middleware('auth');
+        // $this->middleware('admin')->except('show');
     }
     
     public function index()

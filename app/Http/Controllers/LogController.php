@@ -14,8 +14,8 @@ class LogController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
-        $this->middleware('admin');
+        // $this->middleware('auth');
+        // $this->middleware('admin');
     }
 
     public function create2()
@@ -67,7 +67,7 @@ class LogController extends Controller
         return view('logs.index')
             ->withLogs(Log::all());
 
-        return view('venues.logsAll', compact('venues','logs','searchPeriod' ));
+        // return view('venues.logsAll', compact('venues','logs','searchPeriod' ));
     }
 
     public function show(Log $log)

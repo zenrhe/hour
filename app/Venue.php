@@ -21,7 +21,7 @@ class Venue extends Model
         return $query->where('active', 1);
     }
 
-    public static function notActive()// this should also be a scope.
+    public static function notActive()// TODO this should also be a scope.
     {
         return static::where('active', 0)->get();
     }
