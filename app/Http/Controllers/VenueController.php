@@ -33,10 +33,13 @@ class VenueController extends Controller
         // You already have that relationship defined in App\Venue
         // So don't need the following line.
         //
-        // $logs = Venue::find($venue->id )->logs;
+        //$logs = Venue::find($venue->id )->logs;
+        $logs = Log::where('venue_id',$venue->id)->get();
 
-        return view('venues.show')
-            ->withVenue($venue);
+        return view('venues.show', compact('venue', 'logs'));
+        
+        // return view('venues.show')
+        //     ->withVenue($venue);
     }
 
     public function create()
