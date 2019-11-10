@@ -37,7 +37,7 @@ Route::post('profile/{user}', 'profileController@update')->name('profile.update'
 //Venues
 Route::get('venues', 'VenueController@index')->name('venues.index');
 
-//Route::get('venues/{venue}', 'VenueController@show');
+Route::get('venues/{venue}', 'VenueController@show');
 Route::get('venues/create', 'VenueController@create');
 Route::post('venues', 'VenueController@store');
 
