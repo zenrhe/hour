@@ -47,7 +47,8 @@
     @yield('header')
     @include('layouts.nav')
 
-<div class="contrainer" style="margin-top:1em;">
+<div class="main_contrainer" style="max-width:800px; margin: 1em auto">
+    <!--TODO - fix css cash issue to not have this inline css -->
     @yield('content')
     
 </div>
