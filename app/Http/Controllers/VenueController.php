@@ -19,12 +19,11 @@ class VenueController extends Controller
 
     public function index()
     {
-        $venues = Venue::get();
+        // $venues = Venue::get();
+        // return view('venues.index', compact('venues'));
 
-        return view('venues.index', compact('venues'));
-
-        // return view('venues.index')
-        //     ->withVenue(Venue::all());
+        return view('venues.index')
+            ->withVenues(Venue::all());
     }
 
     public function show(Venue $venue)
