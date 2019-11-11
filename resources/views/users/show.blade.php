@@ -6,7 +6,7 @@
     <div class="row">    
         <div class="col-lg-12 col-sm-12">
             <div class="profile_name">
-                <h3>{{ $user->name}} </h3>
+                <h3>{{ $user->first_name}} {{ $user->last_name}}</h3>
             </div>
         </div>
     </div>
