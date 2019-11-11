@@ -14,6 +14,10 @@
 
 */
 use Illuminate\Support\Facades\Storage;
+use App\Venue;
+use App\User;
+use App\Profile;
+use App\Log;
 
 
 //Welcome Pages
@@ -24,6 +28,9 @@ Route::get('/', function () {
 Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();
+
+
+
 
 //Users
 Route::get('users', 'UsersController@index')->name('users.index');
@@ -78,6 +85,14 @@ Route::POST('avatars',function(){
 
 
 return back();
+});
+
+Route::get('admin', function ($searchPeriod = null) {
+
+    return view('admin')
+    ->withVenues(Venue::all())
+    ->withUsers(User::all());
+
 });
 
 // Route::get('avatars/{id}/{filename}', function($filename) {
